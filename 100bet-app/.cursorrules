@@ -1,0 +1,72 @@
+**Cursor AI Assistant Rules**
+
+---
+
+## 1. Role & Thinking
+
+1. **Deep Thinking**: Before executing any step, deeply consider the user’s overall goals and previous interactions. Don’t rush; analyze context across the project to avoid circular work.
+2. **Previous Implementations**: Always inspect existing code, configuration, or content. Reference past snippets or commits to prevent redundant changes.
+3. **Full Execution Privileges**: You can create, delete, and modify files; run shell commands; compile code; install dependencies; and deploy. Proceed autonomously unless a manual decision or missing credential is required.
+4. **Line-by-Line Commentary**: Every code file you generate or modify must include clear, concise comments on every line or logical block, explaining purpose, inputs, outputs, and any important details.
+
+## 2. HTMX & Modern Web Development Principles
+
+1. **Concise, Clear, Technical**: Use precise HTMX examples; avoid unnecessary verbosity.
+2. **Declarative Interactivity**: Leverage `hx-` attributes (e.g., `hx-get`, `hx-post`, `hx-trigger`, `hx-target`, `hx-swap`) instead of custom JS event handlers.
+3. **Maintainability & Readability**: Use descriptive attribute names; structure code and templates modularly.
+4. **Fragments Over JSON**: Server endpoints return minimal HTML fragments, not JSON, to update the DOM efficiently.
+5. **Progressive Enhancement**: Ensure non-HTMX clients can still use normal links/forms; provide fallbacks.
+
+## 3. HTMX Usage Patterns
+
+- **Server Requests**: `hx-get="/endpoint"`, `hx-post="/submit"`, with clear URL conventions.
+- **Trigger Control**: `hx-trigger="click delay:300ms"` to debounce actions.
+- **Target Injection**: `hx-target="#elementId"` with `hx-swap="innerHTML"` or appropriate swap mode.
+- **Confirmation Prompts**: Use `hx-confirm="Are you sure?"` for destructive actions.
+- **URL State**: `hx-push-url` to update browser URL on fragment swaps.
+
+## 4. Error Handling & Validation
+
+- **Server-Side Validation**: Always validate inputs; return `4xx` status codes on client errors, `5xx` on server errors.
+- **Inline Feedback**: Use `hx-swap` modes to inject `<small class="error">...</small>` adjacent to form fields.
+- **Global Flash**: Maintain a `<div id="flashMessages" hx-target="body" hx-swap="afterbegin"></div>` for alerts/errors.
+
+## 5. Dependencies & Tooling
+
+- **HTMX**: Latest stable release.
+- **Backend**: Any suitable framework (Django, Flask, Express, etc.).
+- **Frontend Helpers**: Optional UI libraries (Bootstrap, Tailwind CSS) integrated without extra JS.
+- **CSRF Protection**: Add `hx-headers='{"X-CSRF-Token":"{{csrf_token}}"}'` or hidden input fields.
+
+## 6. Performance Optimization
+
+- **Minimal Responses**: Return only necessary HTML.
+- **Fragment Caching**: Use ETag or server cache for static fragments.
+- **Debounce/Throttle**: For high-frequency events, `hx-trigger="keyup changed delay:300ms"`.
+
+## 7. Project Organization & Conventions
+
+1. **File Structure**:
+   - `templates/fragments/` for reusable partials (named `_*.html`).
+   - `routes/htmx_map.md` listing each HTMX endpoint, parameters, and fragment paths.
+2. **Naming**:
+   - IDs and targets mirror endpoint names: `<div id="usersList"></div>`, `hx-get="/users/list"`.
+3. **Linting & Testing**:
+   - Enforce HTML/accessibility lint rules (e.g., axe-core).
+   - Write integration tests for HTMX endpoints, asserting returned HTML structure.
+
+## 8. Security Best Practices
+
+- **CSRF**: Include tokens on all `hx-post` calls.
+- **Sanitization**: Clean and validate all inputs before rendering.
+
+## 9. Documentation & Onboarding
+
+- **Kitchen Sink Page**: Showcase all HTMX patterns used.
+- **API Map**: Maintain `routes/htmx_map.md` as living documentation.
+- **Code Comments**: Every line or logical block in code must have an explanatory comment.
+
+---
+
+*These rules guide Cursor AI to deliver concise, maintainable, and performant HTMX-enhanced applications with clear code commentary and autonomous execution while respecting project history.*
+

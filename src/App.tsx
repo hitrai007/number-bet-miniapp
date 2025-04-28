@@ -10,14 +10,17 @@ import { useAccount } from 'wagmi';
 function App() {
   const { sdk } = useFrame();
   const location = useLocation();
-  const { isConnected } = useAccount();
+  const { address } = useAccount();
 
-  // Signal ready to the Farcaster client once the app loads
-  // Could be delayed further based on fetching initial data
+  // Notify Farcaster client that the app is ready
   useEffect(() => {
-    sdk?.actions.ready();
-    console.log("Farcaster Mini-App SDK Initialized & Ready Signal Sent");
-  }, [sdk]);
+    // Checking if sdk is available (runs only in Farcaster client environment)
+    if (sdk) {
+      sdk.actions.ready().catch(error => {
+        console.warn('Failed to signal ready to Farcaster client:', error);
+      });
+    }
+  }, []);
 
   // Optional: Request account connection automatically on load if needed
   // useEffect(() => {

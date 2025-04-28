@@ -43,6 +43,10 @@ contract Bet100 is Ownable {
     mapping(uint256 => mapping(uint8 => mapping(address => uint256))) public userBets; // roundId => number => user => bet count
     mapping(uint256 => mapping(address => uint256)) public userTotalStakeInRound; // roundId => user => total stake value
 
+    // Add explicit getters for nested claimed/refunded mappings
+    mapping(uint256 => mapping(address => uint256)) internal _claimedWinnings; // roundId => user => claimed amount
+    mapping(uint256 => mapping(address => uint256)) internal _refundedAmount; // roundId => user => refunded amount
+
     event BetPlaced(uint256 indexed roundId, address indexed user, uint8 number, uint256 betCount);
     event WinnerDrawn(uint256 indexed roundId, uint8 winningNumber, uint256 totalPot, uint256 platformFee);
     event WinningsClaimed(uint256 indexed roundId, address indexed user, uint256 amount);
@@ -162,7 +166,7 @@ contract Bet100 is Ownable {
         Round storage round = rounds[_roundId];
         require(round.concluded, "Bet100: Round not concluded");
         require(!round.cancelled, "Bet100: Round was cancelled");
-        require(round.claimedWinnings[msg.sender] == 0, "Bet100: Winnings already claimed");
+        require(_claimedWinnings[_roundId][msg.sender] == 0, "Bet100: Winnings already claimed");
 
         uint8 winningNumber = round.winningNumber;
         uint256 userBetCountOnWinningNumber = userBets[_roundId][winningNumber][msg.sender];
@@ -174,7 +178,7 @@ contract Bet100 is Ownable {
         uint256 userWinnings = (round.distributablePot * userBetCountOnWinningNumber) / totalWinningBets;
         require(userWinnings > 0, "Bet100: Calculated winnings are zero");
 
-        round.claimedWinnings[msg.sender] = userWinnings;
+        _claimedWinnings[_roundId][msg.sender] = userWinnings;
         usdtToken.transfer(msg.sender, userWinnings);
         emit WinningsClaimed(_roundId, msg.sender, userWinnings);
     }
@@ -182,11 +186,11 @@ contract Bet100 is Ownable {
     function claimRefund(uint256 _roundId) external {
         Round storage round = rounds[_roundId];
         require(round.cancelled, "Bet100: Round was not cancelled");
-        require(round.refundedAmount[msg.sender] == 0, "Bet100: Refund already claimed");
+        require(_refundedAmount[_roundId][msg.sender] == 0, "Bet100: Refund already claimed");
         uint256 amountToRefund = userTotalStakeInRound[_roundId][msg.sender];
         require(amountToRefund > 0, "Bet100: No stake found for refund");
 
-        round.refundedAmount[msg.sender] = amountToRefund;
+        _refundedAmount[_roundId][msg.sender] = amountToRefund;
         usdtToken.transfer(msg.sender, amountToRefund);
         emit BetRefunded(_roundId, msg.sender, 0, amountToRefund);
     }
@@ -244,15 +248,27 @@ contract Bet100 is Ownable {
         return rounds[_roundId].totalBetsPerNumber[_number];
     }
 
-     function getClaimedWinnings(uint256 _roundId, address _user) external view returns (uint256) {
-        return rounds[_roundId].claimedWinnings[_user];
+    /**
+     * @notice Check the amount of winnings claimed by a user for a specific round.
+     * @param _roundId The ID of the round to check.
+     * @param _user The address of the user to check.
+     * @return The amount claimed (0 if none).
+     */
+    function getClaimedWinnings(uint256 _roundId, address _user) public view returns (uint256) {
+        return _claimedWinnings[_roundId][_user];
     }
 
-    function getRefundedAmount(uint256 _roundId, address _user) external view returns (uint256) {
-        return rounds[_roundId].refundedAmount[_user];
+    /**
+     * @notice Check the amount refunded to a user for a specific (cancelled) round.
+     * @param _roundId The ID of the round to check.
+     * @param _user The address of the user to check.
+     * @return The amount refunded (0 if none).
+     */
+    function getRefundedAmount(uint256 _roundId, address _user) public view returns (uint256) {
+        return _refundedAmount[_roundId][_user];
     }
 
-     function getCurrentRoundState() external view returns (uint256 roundId, uint256 bettingEnd, uint256 cooldownEnd, string memory phase) {
+    function getCurrentRoundState() external view returns (uint256 roundId, uint256 bettingEnd, uint256 cooldownEnd, string memory phase) {
         uint256 _currentRoundId = currentRoundId;
         Round storage current = rounds[_currentRoundId];
         uint256 currentTime = block.timestamp;

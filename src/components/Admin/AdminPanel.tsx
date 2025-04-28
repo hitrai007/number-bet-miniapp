@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
+import { useAdminActions } from '../../hooks/useAdminActions';
 
-interface AdminPanelProps {
-  // TODO: Add props for admin actions (resetTimer, cancelGame, etc.) and bet data
-}
-
-function AdminPanel({}: AdminPanelProps) {
-  // TODO: Implement admin action calls and bet table display
-  const [targetUser, setTargetUser] = useState('');
-  const [targetNumber, setTargetNumber] = useState('');
-  const [overrideNumber, setOverrideNumber] = useState('');
+function AdminPanel() {
+  const [drawNumber, setDrawNumber] = useState<string>('');
+  const [overrideNumber, setOverrideNumber] = useState<string>('');
+  const [refundAddress, setRefundAddress] = useState<string>('');
+  const [refundRoundId, setRefundRoundId] = useState<string>('');
+  const [refundBetNumber, setRefundBetNumber] = useState<string>('');
 
   return (
     <div className="space-y-8 p-6 bg-white rounded-lg shadow-lg">
@@ -48,8 +46,8 @@ function AdminPanel({}: AdminPanelProps) {
          <div className="col-span-full space-y-2 border p-3 rounded bg-blue-50">
              <h4 className="text-lg font-medium text-center">Refund Specific Bet</h4>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                 <input type="text" value={targetUser} onChange={(e) => setTargetUser(e.target.value)} className="p-2 border rounded" placeholder="User Address (0x...)" />
-                 <input type="number" min="1" max="100" value={targetNumber} onChange={(e) => setTargetNumber(e.target.value)} className="p-2 border rounded" placeholder="Number (1-100)" />
+                 <input type="text" value={refundAddress} onChange={(e) => setRefundAddress(e.target.value)} className="p-2 border rounded" placeholder="User Address (0x...)" />
+                 <input type="number" min="1" max="100" value={refundBetNumber} onChange={(e) => setRefundBetNumber(e.target.value)} className="p-2 border rounded" placeholder="Number (1-100)" />
                  <button onClick={() => console.log('TODO: Refund Bet')} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-50">
                     Refund Bet
                 </button>
