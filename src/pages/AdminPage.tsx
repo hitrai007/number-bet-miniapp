@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { ethers } from 'ethers';
 import AdminPanel from '../components/Admin/AdminPanel';
-import { ADMIN_PRIVATE_KEY, RPC_URL } from '../lib/constants';
+// import { RPC_URL } from '../config/constants'; // Assume RPC handled by wagmi
+import { ADMIN_PRIVATE_KEY } from '../lib/constants';
 
 function AdminPage() {
   const { address } = useAccount();

@@ -1,7 +1,6 @@
-import React from 'react';
 import Cell from './Cell';
 import { MAX_NUMBER } from '../../lib/constants';
-import { BetButton } from '../BettingGrid/BetButton';
+// import { BetButton } from '../BettingGrid/BetButton';
 
 // Remove the empty interface
 // interface GridProps {

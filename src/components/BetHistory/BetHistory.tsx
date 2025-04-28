@@ -1,6 +1,5 @@
 // src/components/BetHistory/BetHistory.tsx
-import React, { useMemo } from 'react';
-import { useReadContracts, useAccount } from 'wagmi';
+import { useReadContracts, useAccount, useReadContract } from 'wagmi';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
 import { NUMBER_BET_ADDRESS } from '../../config/constants';
 
@@ -14,7 +13,7 @@ function BetHistory() {
     abi: numberBetAbi,
   } as const;
 
-  // Read the current round ID first
+  // Read the current round ID first (using useReadContract for single read)
   const { data: currentRoundIdData, isLoading: isLoadingRoundId } = useReadContract({
     ...numberBetContractConfig,
     functionName: 'currentRoundId',

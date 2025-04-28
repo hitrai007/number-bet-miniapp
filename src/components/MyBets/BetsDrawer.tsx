@@ -1,11 +1,3 @@
-import React from 'react';
-
-interface BetsDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-  // TODO: Add prop for user bets data
-}
-
 function BetsDrawer({ isOpen, onClose }: BetsDrawerProps) {
   // TODO: Implement drawer slide animation and display user bets
   if (!isOpen) return null;

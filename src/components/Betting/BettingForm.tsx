@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadContract, useReadContracts } from 'wagmi';
 import { formatUnits } from 'viem';
 import { erc20Abi } from '../../config/abis/erc20Abi'; // Assuming you have a generic ERC20 ABI
@@ -74,7 +74,7 @@ function BettingForm() {
   }, [allowanceData]);
 
   // Hook to wait for transaction confirmation
-  const { data: txReceiptData, isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+  const { /* data: txReceiptData, */ isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
     hash: writeContractData, // Hash of the transaction submitted by writeContract
   });
 

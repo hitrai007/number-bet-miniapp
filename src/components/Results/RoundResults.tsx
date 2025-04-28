@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useAccount, useReadContracts, useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
+import { useState, useEffect } from 'react';
+import { useAccount, useReadContracts, useWriteContract, useWaitForTransactionReceipt /*, useReadContract */ } from 'wagmi';
 import { formatUnits, formatEther } from 'viem';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
 import { NUMBER_BET_ADDRESS } from '../../config/constants';

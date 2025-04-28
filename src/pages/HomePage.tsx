@@ -1,4 +1,3 @@
-import React from 'react';
 import { Header } from '../components/Core/Header';
 import BettingForm from '../components/Betting/BettingForm';
 import GameInfo from '../components/GameInfo/GameInfo';

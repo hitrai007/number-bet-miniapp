@@ -1,26 +1,35 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi';
 import { usdtContractConfig, bet100ContractConfig } from '../config/contracts';
 import { BET_AMOUNT_WEI, CONTRACT_ADDRESS } from '../lib/constants';
 import { toast } from 'react-toastify';
-import { Address, MaxUint256 } from 'viem';
+// import { Address, MaxUint256 } from 'viem';
+import { erc20Abi } from '../config/abis/erc20Abi';
+import { numberBetAbi } from '../config/abis/numberBetAbi';
+import { NUMBER_BET_ADDRESS, BETTING_TOKEN_ADDRESS } from '../config/constants';
+import { formatUnits } from 'viem';
 
 export function useBetting() {
   const { address } = useAccount();
   const [isActionPending, setIsActionPending] = useState(false);
 
-  // --- Allowance Check & Approval --- 
+  // Fetch allowance
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    ...usdtContractConfig,
+    address: BETTING_TOKEN_ADDRESS,
+    abi: erc20Abi,
     functionName: 'allowance',
-    args: [address!, CONTRACT_ADDRESS], // Use non-null assertion safely or check address
-    query: { enabled: !!address },
+    args: [address!, NUMBER_BET_ADDRESS],
+    query: { enabled: !!address }
   });
 
   const { writeContractAsync: approveAsync, data: approveTxHash } = useWriteContract();
   const { isLoading: isConfirmingApproval } = useWaitForTransactionReceipt({ hash: approveTxHash });
 
-  const needsApproval = allowance !== undefined && allowance < BET_AMOUNT_WEI;
+  // Determine if approval is needed
+  const needsApproval = useMemo(() => {
+    // Check if allowance and betAmount are defined and allowance is less than betAmount
+    return allowance !== undefined && BET_AMOUNT_WEI !== undefined && allowance < BET_AMOUNT_WEI;
+  }, [allowance]);
 
   const approve = useCallback(async () => {
     if (!address || !needsApproval) return false;

@@ -1,6 +1,5 @@
 // src/components/GameInfo/GameInfo.tsx
-import React from 'react';
-import { useAccount, useReadContracts } from 'wagmi';
+import { useAccount, useReadContracts, useReadContract } from 'wagmi';
 import { formatUnits } from 'viem';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
 import { NUMBER_BET_ADDRESS } from '../../config/constants';
@@ -30,8 +29,8 @@ function GameInfo() {
     abi: numberBetAbi,
   } as const;
 
-  // Fetch currentRoundId first
-  const { data: currentRoundIdData, isLoading: isLoadingRoundId, error: errorRoundId } = useReadContracts({
+  // Fetch currentRoundId first (using useReadContract)
+  const { data: currentRoundIdData, isLoading: isLoadingRoundId, error: errorRoundId } = useReadContract({
       ...numberBetContractConfig,
       functionName: 'currentRoundId',
       query: {
@@ -39,7 +38,7 @@ function GameInfo() {
           refetchInterval: 30000, // Refetch every 30 seconds
       },
   });
-  const currentRoundId = currentRoundIdData?.[0]?.result as bigint | undefined;
+  const currentRoundId = currentRoundIdData as bigint | undefined;
 
   // Fetch general round data and BET_AMOUNT once currentRoundId is available
   const { data: roundAndBetAmountData, isLoading: isLoadingRoundData } = useReadContracts({
@@ -68,7 +67,7 @@ function GameInfo() {
   const betAmount = betAmountResult?.status === 'success' ? betAmountResult.result as bigint : undefined;
 
   // Combine loading states
-  const isLoading = isLoadingRoundId || isLoadingRoundData;
+  // const isLoading = isLoadingRoundId || isLoadingRoundData;
 
   // Combine error states
   const error = errorRoundId; // Removed errorRoundData

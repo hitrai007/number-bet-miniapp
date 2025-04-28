@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
-import Header from './components/Core/Header';
+import { Header } from './components/Core/Header';
 import Footer from './components/Core/Footer';
 import { useFrame } from '@farcaster/frame-sdk';
 import { useAccount } from 'wagmi';
@@ -10,17 +10,17 @@ import { useAccount } from 'wagmi';
 function App() {
   const { sdk } = useFrame();
   const location = useLocation();
-  const { address } = useAccount();
+  // const { address } = useAccount(); // Keep address commented out for now
 
   // Notify Farcaster client that the app is ready
   useEffect(() => {
     // Checking if sdk is available (runs only in Farcaster client environment)
     if (sdk) {
-      sdk.actions.ready().catch(error => {
+      sdk.actions.ready().catch((error: unknown) => {
         console.warn('Failed to signal ready to Farcaster client:', error);
       });
     }
-  }, []);
+  }, [sdk]);
 
   // Optional: Request account connection automatically on load if needed
   // useEffect(() => {
