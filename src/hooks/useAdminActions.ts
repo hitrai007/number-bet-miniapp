@@ -1,17 +1,17 @@
 import { useState, useCallback, useMemo } from 'react';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
-import { Bet100 } from '../../typechain-types'; // Adjust path as needed
+// import { Bet100 } from '../../typechain-types'; // Commented out
 import { bet100ContractConfig } from '../config/contracts';
 import { RPC_URL } from '../lib/constants';
 
 // Function to create admin signer and contract instance
-const getAdminContract = (adminPrivateKey: string): Bet100 | null => {
+const getAdminContract = (adminPrivateKey: string): ethers.Contract | null => {
   if (!adminPrivateKey) return null;
   try {
     const provider = new ethers.JsonRpcProvider(RPC_URL);
     const wallet = new ethers.Wallet(adminPrivateKey, provider);
-    const contract = new ethers.Contract(bet100ContractConfig.address, bet100ContractConfig.abi, wallet) as unknown as Bet100;
+    const contract = new ethers.Contract(bet100ContractConfig.address, bet100ContractConfig.abi, wallet) as unknown as ethers.Contract;
     return contract;
   } catch (error) {
     console.error("Failed to create admin contract instance:", error);

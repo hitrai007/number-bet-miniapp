@@ -5,7 +5,7 @@ import App from './App';
 import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { config } from './config/wagmi';
-import { FrameProvider } from '@farcaster/frame-sdk';
+import FrameProvider from '@farcaster/frame-sdk';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/globals.css'; // Use globals.css

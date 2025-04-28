@@ -4,13 +4,12 @@ import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
 import { Header } from './components/Core/Header';
 import Footer from './components/Core/Footer';
-import { useFrame } from '@farcaster/frame-sdk';
-import { useAccount } from 'wagmi';
+import useFrame from '@farcaster/frame-sdk';
+// const { address } = useAccount(); // Keep address commented out for now
 
 function App() {
   const { sdk } = useFrame();
   const location = useLocation();
-  // const { address } = useAccount(); // Keep address commented out for now
 
   // Notify Farcaster client that the app is ready
   useEffect(() => {

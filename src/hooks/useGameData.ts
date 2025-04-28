@@ -1,6 +1,6 @@
 import { useReadContracts } from 'wagmi';
 import { bet100ContractConfig } from '../config/contracts';
-import { REFETCH_INTERVAL } from '../lib/constants';
+// import { REFETCH_INTERVAL } from '../lib/constants';
 
 // TODO: Define return type for game data
 
@@ -24,9 +24,9 @@ export function useGameData() {
   });
 
   // Extract relevant pieces from the data
-  const currentRoundId = undefined; // Placeholder - Extract from data[0]
-  const bettingEndTime = undefined; // Placeholder - Extract from data[1]
-  const cooldownEndTime = undefined; // Placeholder - Extract from data[2]
+  // const currentRoundId = undefined; // Placeholder - Extract from data[0]
+  // const bettingEndTime = undefined; // Placeholder - Extract from data[1]
+  // const cooldownEndTime = undefined; // Placeholder - Extract from data[2]
 
   // TODO: Parse data array safely based on contractsToRead
   // console.log("Raw Game Data:", data);

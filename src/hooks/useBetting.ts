@@ -1,13 +1,13 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi';
-import { usdtContractConfig, bet100ContractConfig } from '../config/contracts';
-import { BET_AMOUNT_WEI, CONTRACT_ADDRESS } from '../lib/constants';
+// import { usdtContractConfig, bet100ContractConfig } from '../config/contracts'; // Commented out, seems unused
+import { BET_AMOUNT_WEI /*, CONTRACT_ADDRESS */ } from '../lib/constants'; // Commented out CONTRACT_ADDRESS
 import { toast } from 'react-toastify';
-// import { Address, MaxUint256 } from 'viem';
+import { maxUint256 } from 'viem'; // Re-import maxUint256
 import { erc20Abi } from '../config/abis/erc20Abi';
-import { numberBetAbi } from '../config/abis/numberBetAbi';
+// import { numberBetAbi } from '../config/abis/numberBetAbi'; // Commented out as unused
 import { NUMBER_BET_ADDRESS, BETTING_TOKEN_ADDRESS } from '../config/constants';
-import { formatUnits } from 'viem';
+// import { formatUnits } from 'viem'; // Commented out as unused
 
 export function useBetting() {
   const { address } = useAccount();
@@ -27,8 +27,10 @@ export function useBetting() {
 
   // Determine if approval is needed
   const needsApproval = useMemo(() => {
-    // Check if allowance and betAmount are defined and allowance is less than betAmount
-    return allowance !== undefined && BET_AMOUNT_WEI !== undefined && allowance < BET_AMOUNT_WEI;
+    // Ensure both allowance and the constant are valid numbers before comparing
+    const currentAllowance = typeof allowance === 'bigint' ? allowance : -1n; // Use -1n if undefined/not bigint
+    const requiredAmount = typeof BET_AMOUNT_WEI === 'bigint' ? BET_AMOUNT_WEI : 0n; // Use 0n if undefined/not bigint
+    return currentAllowance >= 0n && currentAllowance < requiredAmount;
   }, [allowance]);
 
   const approve = useCallback(async () => {

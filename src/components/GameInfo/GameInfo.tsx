@@ -30,7 +30,7 @@ function GameInfo() {
   } as const;
 
   // Fetch currentRoundId first (using useReadContract)
-  const { data: currentRoundIdData, isLoading: isLoadingRoundId, error: errorRoundId } = useReadContract({
+  const { data: currentRoundIdData, /* isLoading: isLoadingRoundId, */ error: errorRoundId } = useReadContract({
       ...numberBetContractConfig,
       functionName: 'currentRoundId',
       query: {
@@ -41,7 +41,7 @@ function GameInfo() {
   const currentRoundId = currentRoundIdData as bigint | undefined;
 
   // Fetch general round data and BET_AMOUNT once currentRoundId is available
-  const { data: roundAndBetAmountData, isLoading: isLoadingRoundData } = useReadContracts({
+  const { data: roundAndBetAmountData /*, isLoading: isLoadingRoundData */ } = useReadContracts({
     contracts: [
       {
         ...numberBetContractConfig,

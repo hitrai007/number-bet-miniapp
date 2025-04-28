@@ -51,7 +51,7 @@ function BetHistory() {
     if (!userBetsData) return [];
     const numbers: number[] = [];
     // Iterate through the results
-    userBetsData.forEach((result, index) => {
+    userBetsData.forEach((result: any, index: number) => {
       // Check if the read was successful and the bet count (result) is greater than 0
       if (result?.status === 'success' && (result.result as bigint) > 0n) {
         numbers.push(index + 1); // Add the number (index + 1) to the list
@@ -80,7 +80,7 @@ function BetHistory() {
       ) : userBetNumbers.length > 0 ? (
         // Display the list of numbers the user bet on
         <div className="flex flex-wrap gap-2 justify-center">
-          {userBetNumbers.map((num) => (
+          {userBetNumbers.map((num: number) => (
             <span
               key={num} // Unique key for each number
               className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full"
