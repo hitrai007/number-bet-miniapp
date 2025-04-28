@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* TypeChain */
+    "outDir": "dist", // Ensure TypeChain outputs can be handled
+    "rootDir": ".", // Adjust if source is not root
+
+    /* Hardhat */
+    "esModuleInterop": true, // Important for Hardhat tasks
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true
+
+  },
+  "include": ["src", "test", "scripts", "hardhat.config.ts"], // Include Hardhat config and test/scripts folders
+  "references": [{ "path": "./tsconfig.node.json" }]
+} 
