@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
 import { Header } from './components/Core/Header';
 import Footer from './components/Core/Footer';
-import { useFrame } from '@farcaster/frame-sdk';
+import useFrame from '@farcaster/frame-sdk';
 // const { address } = useAccount(); // Keep address commented out for now
 
 function App() {

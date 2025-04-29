@@ -3,7 +3,7 @@ import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadCont
 import { usdtContractConfig, bet100ContractConfig } from '../config/contracts'; // Uncommented
 import { BET_AMOUNT_WEI, CONTRACT_ADDRESS } from '../lib/constants'; // Uncommented CONTRACT_ADDRESS
 import { toast } from 'react-toastify';
-// import { maxUint256 } from 'viem'; // Remove this import
+import { maxUint256 } from 'viem'; // Add import back
 import { erc20Abi } from '../config/abis/erc20Abi';
 // import { numberBetAbi } from '../config/abis/numberBetAbi'; // Commented out as unused
 import { NUMBER_BET_ADDRESS, BETTING_TOKEN_ADDRESS } from '../config/constants';
