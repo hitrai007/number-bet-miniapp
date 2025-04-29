@@ -5,7 +5,7 @@ import BetHistory from '../components/BetHistory/BetHistory';
 import RoundResults from '../components/Results/RoundResults';
 import { useReadContract } from 'wagmi';
 import { numberBetAbi } from '../config/abis/numberBetAbi';
-import { NUMBER_BET_ADDRESS } from '../config/constants';
+import { NUMBER_BET_ADDRESS } from '../config/constants.ts';
 
 function HomePage() {
   // Fetch current round ID to determine the previous round ID
