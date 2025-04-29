@@ -4,12 +4,13 @@ import HomePage from './pages/HomePage';
 import AdminPage from './pages/AdminPage';
 import { Header } from './components/Core/Header';
 import Footer from './components/Core/Footer';
-import useFrame from '@farcaster/frame-sdk';
-// const { address } = useAccount(); // Keep address commented out for now
+import { sdk } from '@farcaster/frame-sdk'; // Import sdk directly
+// import { useAccount } from 'wagmi';
 
 function App() {
-  const { sdk } = useFrame();
+  // const { sdk } = useFrame(); // Remove useFrame hook
   const location = useLocation();
+  // const { address } = useAccount();
 
   // Notify Farcaster client that the app is ready
   useEffect(() => {
@@ -18,8 +19,10 @@ function App() {
       sdk.actions.ready().catch((error: unknown) => {
         console.warn('Failed to signal ready to Farcaster client:', error);
       });
+    } else {
+      console.warn('Farcaster SDK not found.'); // Log if SDK isn't present
     }
-  }, [sdk]);
+  }, []); // Removed sdk dependency as it's imported directly
 
   // Optional: Request account connection automatically on load if needed
   // useEffect(() => {
