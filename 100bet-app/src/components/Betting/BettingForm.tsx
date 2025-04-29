@@ -3,7 +3,7 @@ import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadCont
 import { formatUnits } from 'viem';
 import { erc20Abi } from '../../config/abis/erc20Abi'; // Assuming you have a generic ERC20 ABI
 import { numberBetAbi } from '../../config/abis/numberBetAbi'; // Assuming you have the NumberBet contract ABI
-import { BETTING_TOKEN_ADDRESS, NUMBER_BET_ADDRESS } from '../../config/constants'; // Import contract addresses (updated name)
+import { BETTING_TOKEN_ADDRESS, NUMBER_BET_ADDRESS } from '../../config/constants.ts'; // Import contract addresses (updated name)
 import { toast } from 'react-toastify'; // Import toast from react-toastify
 
 // Default decimals if fetch fails or during loading
