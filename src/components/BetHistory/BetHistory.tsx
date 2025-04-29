@@ -1,4 +1,5 @@
 // src/components/BetHistory/BetHistory.tsx
+import { useMemo } from 'react';
 import { useReadContracts, useAccount, useReadContract } from 'wagmi';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
 import { NUMBER_BET_ADDRESS } from '../../config/constants';

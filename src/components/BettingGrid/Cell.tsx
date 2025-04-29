@@ -1,4 +1,9 @@
-
+// Define props interface
+interface CellProps {
+  number: number;
+  onClick: () => void;
+  // TODO: Add props for user bets, total bets, winner state, revealing state
+}
 
 function Cell({ number, onClick }: CellProps) {
   // TODO: Implement cell styling based on props (user bets, winner, etc.)

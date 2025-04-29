@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi';
-// import { usdtContractConfig, bet100ContractConfig } from '../config/contracts'; // Commented out, seems unused
-import { BET_AMOUNT_WEI /*, CONTRACT_ADDRESS */ } from '../lib/constants'; // Commented out CONTRACT_ADDRESS
+import { usdtContractConfig, bet100ContractConfig } from '../config/contracts'; // Uncommented
+import { BET_AMOUNT_WEI, CONTRACT_ADDRESS } from '../lib/constants'; // Uncommented CONTRACT_ADDRESS
 import { toast } from 'react-toastify';
-import { maxUint256 } from 'viem'; // Re-import maxUint256
+// import { maxUint256 } from 'viem'; // Remove this import
 import { erc20Abi } from '../config/abis/erc20Abi';
 // import { numberBetAbi } from '../config/abis/numberBetAbi'; // Commented out as unused
 import { NUMBER_BET_ADDRESS, BETTING_TOKEN_ADDRESS } from '../config/constants';
@@ -41,7 +41,7 @@ export function useBetting() {
       await approveAsync({
         ...usdtContractConfig,
         functionName: 'approve',
-        args: [CONTRACT_ADDRESS, MaxUint256], // Approve max
+        args: [CONTRACT_ADDRESS, maxUint256], // Corrected to lowercase
       });
       toast.update(toastId, { render: "Approval sent, awaiting confirmation...", type: "info", isLoading: true });
       // Success/failure toast handled by effect watching isConfirmingApproval / isApprovalSuccess

@@ -1,3 +1,10 @@
+// Define props interface
+interface BetsDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  // TODO: Add prop for user bets data (e.g., bets: { number: number; amount: bigint }[])
+}
+
 function BetsDrawer({ isOpen, onClose }: BetsDrawerProps) {
   // TODO: Implement drawer slide animation and display user bets
   if (!isOpen) return null;
