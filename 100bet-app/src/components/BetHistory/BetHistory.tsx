@@ -1,8 +1,10 @@
 // src/components/BetHistory/BetHistory.tsx
 import { useMemo } from 'react';
 import { useReadContracts, useAccount, useReadContract } from 'wagmi';
+import { formatUnits } from 'viem';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
-import { NUMBER_BET_ADDRESS } from '../../config/constants';
+import { NUMBER_BET_ADDRESS } from '../../config/constants.ts';
+import { toast } from 'react-toastify';
 
 function BetHistory() {
   // Get connected account details

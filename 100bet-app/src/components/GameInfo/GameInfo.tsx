@@ -2,7 +2,7 @@
 import { useAccount, useReadContracts, useReadContract } from 'wagmi';
 import { formatUnits } from 'viem';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
-import { NUMBER_BET_ADDRESS } from '../../config/constants';
+import { NUMBER_BET_ADDRESS } from '../../config/constants.ts';
 
 // Helper function to format timestamp (you might want a more sophisticated library like date-fns)
 const formatTimestamp = (timestamp: bigint | undefined): string => {

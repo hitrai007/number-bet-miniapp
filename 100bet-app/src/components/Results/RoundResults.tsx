@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAccount, useReadContracts, useWriteContract, useWaitForTransactionReceipt /*, useReadContract */ } from 'wagmi';
 import { formatUnits, formatEther } from 'viem';
 import { numberBetAbi } from '../../config/abis/numberBetAbi';
-import { NUMBER_BET_ADDRESS } from '../../config/constants';
+import { NUMBER_BET_ADDRESS } from '../../config/constants.ts';
 import { toast } from 'react-toastify';
 
 // Default decimals (replace if needed or fetch dynamically)
