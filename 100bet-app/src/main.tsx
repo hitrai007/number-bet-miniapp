@@ -30,7 +30,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           draggable
           pauseOnHover
           theme="light"
-         />
+          aria-label="toast-container"
+        />
       </QueryClientProvider>
     </WagmiProvider>
   </React.StrictMode>,
