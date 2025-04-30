@@ -1,11 +1,11 @@
 import { Address } from 'viem';
 
-// Read directly from process.env (Vite handles replacement)
-export const USDT_ADDRESS = (process.env.VITE_USDT_CONTRACT_ADDRESS || '0x') as Address;
-export const CONTRACT_ADDRESS = (process.env.VITE_CONTRACT_ADDRESS || '0x') as Address;
-export const ADMIN_PRIVATE_KEY = process.env.VITE_ADMIN_PRIVATE_KEY || '';
-export const RPC_URL = process.env.VITE_RPC_URL || '';
-export const CHAIN_ID = parseInt(process.env.VITE_CHAIN_ID || "84532");
+// Read using import.meta.env for Vite client-side access
+export const USDT_ADDRESS = (import.meta.env.VITE_USDT_CONTRACT_ADDRESS || '0x') as Address;
+export const CONTRACT_ADDRESS = (import.meta.env.VITE_CONTRACT_ADDRESS || '0x') as Address;
+export const ADMIN_PRIVATE_KEY = import.meta.env.VITE_ADMIN_PRIVATE_KEY || '';
+export const RPC_URL = import.meta.env.VITE_RPC_URL || '';
+export const CHAIN_ID = parseInt(import.meta.env.VITE_CHAIN_ID || "84532");
 
 // Validate critical environment variables
 if (!USDT_ADDRESS || USDT_ADDRESS === '0x') {
